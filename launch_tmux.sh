@@ -1,1 +1,1 @@
-tmux new -d 'dotnet run'
+tmux new -s 'web-service' -d 'dotnet run'
