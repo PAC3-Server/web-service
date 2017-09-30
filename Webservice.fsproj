@@ -3,9 +3,9 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <DebugType>portable</DebugType>
-    <AssemblyName>web_service</AssemblyName>
+    <AssemblyName>Webservice</AssemblyName>
     <OutputType>Exe</OutputType>
-    <PackageId>web_service</PackageId>
+    <PackageId>Webservice</PackageId>
     <RuntimeFrameworkVersion>2.0.0</RuntimeFrameworkVersion>
     <EnableDefaultContentItems>false</EnableDefaultContentItems>
   </PropertyGroup>
