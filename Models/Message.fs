@@ -1,4 +1,4 @@
-namespace web_service.Models
+namespace Webservice.Models
 
 [<CLIMutable>]
 type Message =
