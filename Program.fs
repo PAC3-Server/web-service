@@ -1,10 +1,11 @@
-module web_service.App
+module Webservice.App
 
 open System
 open System.IO
 open System.Collections.Generic
 open Microsoft.AspNetCore.Builder
 open Microsoft.AspNetCore.Hosting
+open Microsoft.AspNetCore.HttpOverrides
 open Microsoft.AspNetCore.Http
 open Microsoft.Extensions.Logging
 open Microsoft.Extensions.DependencyInjection
@@ -12,7 +13,7 @@ open Giraffe.HttpHandlers
 open Giraffe.Middleware
 open Giraffe.Razor.HttpHandlers
 open Giraffe.Razor.Middleware
-open web_service.Models
+open Webservice.Models
 
 // ---------------------------------
 // Web app
@@ -22,7 +23,10 @@ let webApp =
     choose [
         GET >=>
             choose [
-                route "/" >=> razorHtmlView "Index" { Text = "Hello world, from Giraffe!" }
+                route "/" >=> razorHtmlView "Index" { Text = "Hi" }
+                route "/loading" >=> razorHtmlView "Loading" ""
+                //route "/fastdl" >=>  // fastdl managed by nginx
+                route "/loadingmanager" >=> razorHtmlView "LoadingManager" "" // todo
             ]
         setStatusCode 404 >=> text "Not Found" ]
 
@@ -40,6 +44,7 @@ let errorHandler (ex : Exception) (logger : ILogger) =
 
 let configureApp (app : IApplicationBuilder) =
     app.UseGiraffeErrorHandler errorHandler
+    app.UseForwardedHeaders ( ForwardedHeadersOptions ( ForwardedHeaders = (ForwardedHeaders.XForwardedFor ||| ForwardedHeaders.XForwardedProto) ) ) |> ignore
     app.UseStaticFiles() |> ignore
     app.UseGiraffe webApp
 
